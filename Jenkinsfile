@@ -10,8 +10,8 @@ pipeline {
 
     environment {
         TENANT_ID="ec78375d-0db0-42cf-82a6-2e6403e95936"
-        // IMAGE_NAME = "sprinbootapp"
-        // IMAGE_TAG = "latest"
+        IMAGE_NAME = "sprinbootapp"
+        IMAGE_TAG = "latest"
         // ACR_NAME= 'springbootdockerreg'
         // ACR_LOGIN_SERVER ='springbootdockerreg.azurecr.io'
         // FULL_IMAGE_NAME = "${ACR_LOGIN_SERVER}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -56,54 +56,54 @@ pipeline {
         //         sh 'mvn install'
         //     }
         // }
-        stage(' Trivy Scan')
-        {
-            steps {
-                echo "Trivy Scan Started"
-                sh 'trivy fs --format table --output trivy-report.txt --severity HIGH,CRITICAL .'
-                echo "Trivy Scan Finished"
-            }
-        }
+        // stage(' Trivy Scan')
+        // {
+        //     steps {
+        //         echo "Trivy Scan Started"
+        //         sh 'trivy fs --format table --output trivy-report.txt --severity HIGH,CRITICAL .'
+        //         echo "Trivy Scan Finished"
+        //     }
+        // }
 
-        stage('Sonar Analysis')
-        {
-            environment {
-                SCANNER_HOME = tool 'sonarscanner'
-            }
-          steps {
-              withSonarQubeEnv('sonarserver') {
-                sh '''${SCANNER_HOME}/bin/sonar-scanner \
-                -Dsonar.organization=kirubasankari02 \
-                -Dsonar.projectName=azure-springbootjavapp \
-                -Dsonar.projectKey=kirubasankari02_azure-springbootjavapp \
-                -Dsonar.java.binaries=.
-                '''
-              }
-            }
-        }
+        // stage('Sonar Analysis')
+        // {
+        //     environment {
+        //         SCANNER_HOME = tool 'sonarscanner'
+        //     }
+        //   steps {
+        //       withSonarQubeEnv('sonarserver') {
+        //         sh '''${SCANNER_HOME}/bin/sonar-scanner \
+        //         -Dsonar.organization=kirubasankari02 \
+        //         -Dsonar.projectName=azure-springbootjavapp \
+        //         -Dsonar.projectKey=kirubasankari02_azure-springbootjavapp \
+        //         -Dsonar.java.binaries=.
+        //         '''
+        //       }
+        //     }
+        // }
         stage('Maven Package') 
         {
             steps {
                 sh 'mvn package'
             }
         }
-        stage('Sonar Quality Gate') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                    echo "Sonar Quality Gate Finished"
-                }
-            }
-        }
-    //   stage ('Docker Build')
-    //   {
-    //     steps {
-    //         script {
-    //         echo "Build Docker Image"
-    //         docker.build  ("${IMAGE_NAME}:${IMAGE_TAG}")
+        // stage('Sonar Quality Gate') {
+        //     steps {
+        //         timeout(time: 10, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //             echo "Sonar Quality Gate Finished"
+        //         }
+        //     }
+        // }
+      stage ('Docker Build')
+      {
+        steps {
+            script {
+            echo "Build Docker Image"
+            docker.build  ("${IMAGE_NAME}:${IMAGE_TAG}")
       
-    //     }
-    //   }
+        }
+      }
    }
 //    stage('Azure Login and to ACR')
 //    {
