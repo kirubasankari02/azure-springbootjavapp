@@ -65,22 +65,22 @@ pipeline {
             }
         }
 
-        // stage('Sonar Analysis')
-        // {
-        //     environment {
-        //         SCANNER_HOME = tool 'Sonar-scanner'
-        //     }
-        //   steps {
-        //       withSonarQubeEnv('sonarserver') {
-        //         sh '''${SCANNER_HOME}/bin/sonar-scanner \
-        //         -Dsonar.organization=bkrrajmali \
-        //         -Dsonar.projectName=springbootapp \
-        //         -Dsonar.projectKey=springbootapp \
-        //         -Dsonar.java.binaries=.
-        //         '''
-        //       }
-        //     }
-        // }
+        stage('Sonar Analysis')
+        {
+            environment {
+                SCANNER_HOME = tool 'sonarscanner'
+            }
+          steps {
+              withSonarQubeEnv('sonarserver') {
+                sh '''${SCANNER_HOME}/bin/sonar-scanner \
+                -Dsonar.organization=kirubasankari02 \
+                -Dsonar.projectName=azure-springbootjavapp \
+                -Dsonar.projectKey=kirubasankari02_azure-springbootjavapp \
+                -Dsonar.java.binaries=.
+                '''
+              }
+            }
+        }
         // stage('Maven Package') 
         // {
         //     steps {
