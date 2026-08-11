@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-        TENANT_ID="ec78375d-0db0-42cf-82a6-2e6403e95936"
+        TENANT_ID="790eb04b-9a2f-4c5c-8ebb-852737965f44"
         IMAGE_NAME = "sprinbootapp"
         IMAGE_TAG = "latest"
         ACR_NAME= 'springbootdockerreg'
