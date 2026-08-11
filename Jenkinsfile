@@ -150,20 +150,20 @@ pipeline {
       }
     }
    }
-//    stage('Verify Deployment Rollout')
-//    {
-//     steps {
-//         script {
-//             echo "Checking rollout status of deployment ${DEPLOYMENT_NAME} in namespace ${NAMESPACE}"
-//             // kubectl rollout status blocks until the rollout completes or the timeout is hit,
-//             // and exits non-zero on failure -- that non-zero exit is what fails the stage/pipeline.
-//             sh """
-//             kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE} --timeout=60s
-//             """
-//         }
-//     }
-//    }
-//   }
+   stage('Verify Deployment Rollout')
+   {
+    steps {
+        script {
+            echo "Checking rollout status of deployment ${DEPLOYMENT_NAME} in namespace ${NAMESPACE}"
+            // kubectl rollout status blocks until the rollout completes or the timeout is hit,
+            // and exits non-zero on failure -- that non-zero exit is what fails the stage/pipeline.
+            sh """
+            kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE} --timeout=60s
+            """
+        }
+    }
+   }
+  }
  
 //   post {
 //     success {
