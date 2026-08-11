@@ -50,12 +50,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        // stage('Maven Install') 
-        // {
-        //     steps {
-        //         sh 'mvn install'
-        //     }
-        // }
+        stage('Maven Install') 
+        {
+            steps {
+                sh 'mvn install'
+            }
+        }
         // stage(' Trivy Scan')
         // {
         //     steps {
