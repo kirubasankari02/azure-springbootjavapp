@@ -31,31 +31,31 @@ pipeline {
             }
         }
 
-        stage('Maven Validate') 
-        {
-            steps {
-                sh 'mvn validate'
-            }
-        }
+        // stage('Maven Validate') 
+        // {
+        //     steps {
+        //         sh 'mvn validate'
+        //     }
+        // }
 
-        stage('Maven Compile') 
-        {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        stage('Maven Test') 
-        {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Maven Install') 
-        {
-            steps {
-                sh 'mvn install'
-            }
-        }
+        // stage('Maven Compile') 
+        // {
+        //     steps {
+        //         sh 'mvn compile'
+        //     }
+        // }
+        // stage('Maven Test') 
+        // {
+        //     steps {
+        //         sh 'mvn test'
+        //     }
+        // }
+        // stage('Maven Install') 
+        // {
+        //     steps {
+        //         sh 'mvn install'
+        //     }
+        // }
         stage(' Trivy Scan')
         {
             steps {
@@ -81,21 +81,21 @@ pipeline {
               }
             }
         }
-        // stage('Maven Package') 
-        // {
-        //     steps {
-        //         sh 'mvn package'
-        //     }
-        // }
-    //     stage('Sonar Quality Gate') 
-    //     {
-    //         steps {
-    //             timeout(time: 1, unit: 'MINUTES') {
-    //                 waitForQuality abortPipeline: true, credentialsId: 'sonar'
-    //                 echo "Sonar Quality Gate Finished"
-    //         }
-    //     }
-    //   }
+        stage('Maven Package') 
+        {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Sonar Quality Gate') 
+        {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQuality abortPipeline: true, credentialsId: 'sonar'
+                    echo "Sonar Quality Gate Finished"
+            }
+        }
+      }
     //   stage ('Docker Build')
     //   {
     //     steps {
