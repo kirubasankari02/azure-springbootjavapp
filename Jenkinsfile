@@ -15,10 +15,10 @@ pipeline {
         ACR_NAME= 'springbootdockerreg'
         ACR_LOGIN_SERVER ='springbootdockerreg.azurecr.io'
         FULL_IMAGE_NAME = "${ACR_LOGIN_SERVER}/${IMAGE_NAME}:${IMAGE_TAG}"
-        // RG  = 'kubernetes-mgmt-srv'
-        // NAME = 'azure-aks-hpa'
-        // DEPLOYMENT_NAME ="springboot-app"
-        // NAMESPACE="default"
+        RG  = 'kubernetes-mgmt-srv'
+        NAME = 'azure-aks-hpa'
+        DEPLOYMENT_NAME ="springboot-app"
+        NAMESPACE="default"
         // EMAIL_RECIPIENTS = "erwwtwqetwq@gmail.com"
         // EMAIL_FROM = 'tewewtewtq@gmail.com'
     }
@@ -133,23 +133,23 @@ pipeline {
         }
     }
    }
-//    stage('Azure Login and AKS Deployment')
-//    {
-//     steps {
-//         withCredentials([usernamePassword(credentialsId: 'azure-acr-spn', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) 
-//         {
-//         script {
-//             echo "Azure Login"
-//             sh '''
-//             az account set --subscription "202d4be6-e0dd-4b9e-84b7-e235d53271a8"
-//             az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $TENANT_ID 
-//             az aks get-credentials --resource-group $RG --name $NAME --overwrite-existing
-//             kubectl apply -f k8s/sprinboot-deployment.yaml
-//             '''
-//         }
-//       }
-//     }
-//    }
+   stage('Azure Login and AKS Deployment')
+   {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'azure-acr-spn', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) 
+        {
+        script {
+            echo "Azure Login"
+            sh '''
+            az account set --subscription "e73a66e6-c12f-47a2-9ddf-d379d2334969"
+            az login --service-principal -u $AZURE_USERNAME -p $AZURE_PASSWORD --tenant $TENANT_ID 
+            az aks get-credentials --resource-group $RG --name $NAME --overwrite-existing
+            kubectl apply -f k8s/sprinboot-deployment.yaml
+            '''
+        }
+      }
+    }
+   }
 //    stage('Verify Deployment Rollout')
 //    {
 //     steps {
