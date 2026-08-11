@@ -19,8 +19,8 @@ pipeline {
         NAME = 'azure-aks-hpa'
         DEPLOYMENT_NAME ="springboot-app"
         NAMESPACE="default"
-        // EMAIL_RECIPIENTS = "erwwtwqetwq@gmail.com"
-        // EMAIL_FROM = 'tewewtewtq@gmail.com'
+        EMAIL_RECIPIENTS = "keerthi.grace02@gmail.com"
+        EMAIL_FROM = 'azurekiruba@gmail.com'
     }
 
     stages {
